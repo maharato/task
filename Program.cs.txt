@@ -1,0 +1,365 @@
+﻿using System.Xml.Linq;
+
+namespace ConsoleApp22
+{
+
+
+    public class Student
+    {
+
+        public int StudentId { set; get; }
+        public string Name { set; get; }
+        public int Age { set; get; }
+        public List<Course> Courses = new List<Course>();   
+        public void PrintDetails() {
+
+            Console.WriteLine("StudentId : "+ StudentId+ "      Name:  "+ Name+"      age    :"+ Age);
+            Console.WriteLine("enrloed courses is :");
+            for (int i = 0; i < Courses.Count; i++) 
+            { Courses[i].PrintDetails();
+            
+            }
+          
+        
+        }
+        public void AddCourse(Course course) {
+
+            Courses.Add(course);
+
+
+        }
+
+
+    }
+    public class Instructor
+    {
+        public int InstructorId { set; get; }
+        public string Name { set; get; }
+        public string Specialization { set; get; }
+        public void PrintDetails()
+        {
+
+            Console.WriteLine("StudentId : " + InstructorId + "      Name:  " + Name + "      Specialization    :" + Specialization);
+         
+
+
+        }
+
+
+    }
+    public class Course
+    {
+       public int CourseId { set; get; }
+       public string Title { set; get; }
+        public Instructor Instructor { set; get; }
+        public void PrintDetails()
+        {
+
+            Console.WriteLine("CourseId : " + CourseId + "      Title:  " + Title + "      Instructor    :" + Instructor);
+
+
+
+        }
+
+    }
+    public class StudentManager
+    {
+
+
+        public List<Student> Students = new List<Student>();
+        public List<Course> Courses = new List<Course>();
+        public List<Instructor> Instructors = new List<Instructor>();
+
+
+        public void ViewallStudents()
+        {
+
+            for (int i = 0; i < Students.Count; i++)
+            {
+
+    
+                Students[i].PrintDetails();
+
+            }
+        }
+        public void ViewallInstructors()
+        {
+
+            for (int i = 0; i < Instructors.Count; i++)
+            {
+
+              Instructors[i].PrintDetails();
+
+            }
+        }
+        public void ViewallCourses()
+        {
+
+            for (int i = 0; i < Courses.Count; i++)
+            {
+                Courses[i].PrintDetails();
+
+            }
+        }
+        public void searchStd(int view)
+        {
+
+            //
+            for (int i = 0; i < Students.Count; i++)
+            {
+
+                if (Students[i].StudentId == view)
+                {
+                    Students[i].PrintDetails();
+
+                }
+
+
+
+            }
+        }
+              public void searchStd(string view)
+        {
+
+            //
+            for (int i = 0; i < Students.Count; i++)
+            {
+
+                if (Students[i].Name == view)
+                {
+                    Students[i].PrintDetails();
+
+                }
+
+
+
+            }
+
+
+
+
+
+
+
+        }
+        public void searchcourse(string view)
+        {
+
+            //
+            for (int i = 0; i < Students.Count; i++)
+            {
+
+                if (Courses[i].Title == view)
+                {
+                    Courses[i].PrintDetails();
+
+                }
+
+
+
+            }
+
+
+
+
+
+
+
+        }
+        public void searchcourse(int view)
+        {
+
+            //
+            for (int i = 0; i < Students.Count; i++)
+            {
+
+                if (Courses[i].CourseId == view)
+                {
+                    Courses[i].PrintDetails();
+
+                }
+
+
+
+            }
+
+
+
+
+
+
+
+        }
+
+
+
+    }
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+
+
+
+            StudentManager manager = new StudentManager();
+            int id = 1;
+            int insId = 1;
+
+            while (true)
+            {
+                Console.WriteLine("1. Add Student  \r\n2. Add Instructor \r\n3. Add Course  \r\n4. Enroll Student in Course \r\n5. Show All Students \r\n6. Show All Courses \r\n7. Show All Instructors \r\n8. Find the student by id or name \r\n9. Fine the course by id or name \r\n10. Exit ");
+
+                
+                int input = Convert.ToInt32(Console.ReadLine());
+
+
+                if (input == 1)
+                {
+                    Student std = new Student();
+                    Console.WriteLine("please enter  name :   ");
+                    std.Name = Console.ReadLine();
+                    Console.WriteLine("please enter Age :    ");
+                    std.Age = Convert.ToInt32(Console.ReadLine());
+                    std.StudentId = id;
+                    manager.Students.Add(std);
+                    id++;
+
+                }
+                else if (input == 3)
+                {
+                    Course course = new Course();
+                    Console.WriteLine("please enter  name :   ");
+                    course.Title = Console.ReadLine();
+                    Console.WriteLine("please enter CourseId :    ");
+                    course.CourseId = Convert.ToInt32(Console.ReadLine());
+
+                    manager.Courses.Add(course);
+
+                }
+                else if (input == 6)
+                {
+
+                    manager.ViewallCourses();
+
+
+                }
+
+                else if (input == 5)
+                {
+
+                    manager.ViewallStudents();
+
+
+
+                }
+                else if (input == 8)
+                {
+                    Console.WriteLine("search for student ");
+                    Console.WriteLine("1 by id ,2 by name");
+                    int choice = Convert.ToInt32(Console.ReadLine());
+
+                    if (choice == 1)
+                    {
+                        Console.WriteLine("please enter the id");
+                        int idd = Convert.ToInt32(Console.ReadLine());
+
+                        manager.searchStd(idd);
+                    }
+                    else if (choice == 2)
+                    {
+                        Console.WriteLine("please enter the name");
+                        string name = Console.ReadLine();
+
+                        manager.searchStd(name);
+                    }
+
+
+
+
+                }
+                else if (input == 2)
+                {
+
+                    Instructor ins = new Instructor();
+
+                    Console.WriteLine("please enter  name :   ");
+                    ins.Name = Console.ReadLine();
+                    Console.WriteLine("please enter Specialization  :    ");
+                    ins.Specialization = Console.ReadLine();
+
+                    ins.InstructorId = insId;
+                    manager.Instructors.Add(ins);
+                    insId++;
+
+
+                }
+                else if (input == 7)
+                {
+                    manager.ViewallInstructors();
+
+                }
+
+                else if (input == 9)
+                {
+                    Console.WriteLine("search for courses ");
+                    Console.WriteLine("1 by id ,2 by name");
+                    int choice = Convert.ToInt32(Console.ReadLine());
+
+                    if (choice == 1)
+                    {
+                        Console.WriteLine("please enter the id");
+                        int idd = Convert.ToInt32(Console.ReadLine());
+
+                        manager.searchcourse(idd);
+                    }
+                    else if (choice == 2)
+                    {
+                        Console.WriteLine("please enter the name");
+                        string name = Console.ReadLine();
+
+                        manager.searchcourse(name);
+                    }
+
+
+                }
+                else if (input == 4)
+                {
+
+                    manager.ViewallCourses();
+
+                    Console.WriteLine("please choose the course you want to add ");
+                    Console.WriteLine("select course id");
+                    int number = Convert.ToInt32(Console.ReadLine());
+                    for (int i = 0; i < manager.Courses.Count; i++)
+                    {
+                        if (manager.Courses[i].CourseId == number)
+                        {
+                            Course course = new Course();
+                            course = manager.Courses[i];
+                            Console.WriteLine("enroll course to :");
+                            manager.ViewallStudents();
+                            Console.WriteLine("\n please enter student id to be enrolled to");
+                            int numm = Convert.ToInt32(Console.ReadLine());
+                            for (int j = 0; j < manager.Students.Count; j++)
+                            {
+                                if (manager.Students[i].StudentId == numm)
+                                {
+                                    manager.Students[i].AddCourse(course);
+
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+                else 
+                { break; }
+            }
+        }
+    }
+}
